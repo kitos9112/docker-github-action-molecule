@@ -1,17 +1,17 @@
-FROM fedora:35
+FROM fedora:36
 
-LABEL maintainer="Robert de Bock <robert@meinit.nl>"
-LABEL build_date="2022-02-10"
+LABEL maintainer="Marcos Soutullo <marcos.soutullo91@gmail.com>"
+LABEL build_date="2022-04-24"
 
 WORKDIR /github/workspace
 
 RUN dnf install -y docker \
-                   gcc \
-                   git-core \
-                   python3-devel \
-                   python3-libselinux \
-                   python3-jmespath \
-                   python3-pip ; \
+    gcc \
+    git-core \
+    python3-devel \
+    python3-libselinux \
+    python3-jmespath \
+    python3-pip ; \
     dnf clean all
 
 ADD requirements.txt /requirements.txt

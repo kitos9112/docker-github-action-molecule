@@ -1,15 +1,17 @@
 #!/bin/sh
 
+set -e
+
 echo "ACTION: Welcome to the molecule action."
 
 # A function to retry an action a few times until succesful.
 retry() {
   counter=0
-  until "$@" ; do
+  until "$@"; do
     exit=$?
     counter=$(($counter + 1))
     echo "ACTION: retry attempt ${counter}."
-    if [ $counter -ge ${max_failures:-3} ] ; then
+    if [ $counter -ge ${max_failures:-3} ]; then
       return $exit
     fi
   done
@@ -20,7 +22,7 @@ retry() {
 cd ${GITHUB_REPOSITORY:-.}
 
 # Test the role.
-if [ -f tox.ini -a ${command:-test} = test ] ; then
+if [ -f tox.ini -a ${command:-test} = test ]; then
   # If `tox.ini` exists, run tox.
   # (Tox will run molecule with a specified Ansible version.)
   echo "ACTION: running (retry) tox."
@@ -31,9 +33,8 @@ else
   PY_COLORS=1 ANSIBLE_FORCE_COLOR=1 retry molecule ${command:-test} --scenario-name ${scenario:-default}
 fi || status="failed"
 
-
 # Finish with the correct failure code.
-if [ "${status}" == "failed" ] ; then
+if [ "${status}" == "failed" ]; then
   echo "ACTION: Thanks for using this action, good luck troubleshooting."
   exit 1
 else
