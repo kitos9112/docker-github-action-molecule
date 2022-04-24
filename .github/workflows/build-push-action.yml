@@ -1,10 +1,17 @@
-name: build-push
+name: Build and Push Docker image
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - "Dockerfile"
+      - "requirements.txt"
+      - "cmd.sh"
 
 jobs:
-  docker:
+  build-push-docker:
+    name: Build and Push Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
