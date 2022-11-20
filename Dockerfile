@@ -1,4 +1,4 @@
-FROM fedora:36
+FROM fedora:38
 
 LABEL maintainer="Marcos Soutullo <marcos.soutullo91@gmail.com>"
 LABEL build_date="2022-04-24"
